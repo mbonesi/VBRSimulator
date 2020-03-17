@@ -2,13 +2,27 @@
 
 #include <QDebug>
 
+VBRState::VBRState(VBRStateMachine *pContext, uint countsLimit) :
+    _context(pContext),
+    _countsLimit(countsLimit)
+{
+
+}
+
+VBRState::~VBRState()
+{
+
+}
+
+// ########### derived classes follow #############
+
 VBRState_A::VBRState_A(VBRStateMachine *pContext, uint countsLimit) : VBRState(pContext, countsLimit){qDebug() << "Created VBRState_A";}
 VBRState *VBRState_A::HandleProbes(uint probesReadout)
 {
     qDebug() << probesReadout << "handled by VBRState_A";
 
     bool bDelete = false;
-    int val = 0;
+    uint val = 0;
     VBRState *pNewState = this;
 
     switch(probesReadout)
@@ -35,7 +49,7 @@ VBRState *VBRState_B::HandleProbes(uint probesReadout)
     qDebug() << probesReadout << "handled by VBRState_B";
 
     bool bDelete = false;
-    int val = static_cast<int>(_context->GetOutputValue());
+    uint val = _context->GetOutputValue();
     VBRState *pNewState = this;
     switch(probesReadout)
     {
@@ -69,7 +83,7 @@ VBRState *VBRState_C::HandleProbes(uint probesReadout)
     qDebug() << probesReadout << "handled by VBRState_C";
 
     bool bDelete = false;
-    int val = static_cast<int>(_context->GetOutputValue());
+    uint val = _context->GetOutputValue();
     VBRState *pNewState = this;
     switch(probesReadout)
     {

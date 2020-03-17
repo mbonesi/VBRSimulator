@@ -45,28 +45,11 @@ void VBRStateMachine::tick()
     _currState = _currState->HandleProbes(InputsLevel);
 }
 
-void VBRStateMachine::SetOutputValue(int out)
+void VBRStateMachine::SetOutputValue(uint out)
 {
     qDebug() << "FSM SetOutputValue" << out;
     if(out > 100)
         out = 100;
-    if(out < 0)
-        out = 0;
-    DrivenOutput = static_cast<uint>(out);
-    emit(drivenOutputChanged(static_cast<uint>(out)));
+    DrivenOutput = out;
+    emit(drivenOutputChanged(out));
 }
-
-//#############################################################
-
-VBRState::VBRState(VBRStateMachine *pContext, uint countsLimit) :
-    _context(pContext),
-    _countsLimit(countsLimit)
-{
-
-}
-
-VBRState::~VBRState()
-{
-
-}
-

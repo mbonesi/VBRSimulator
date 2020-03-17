@@ -39,7 +39,7 @@ public:
     void SetValue(uint newValue) {_setPoint = newValue;}
     uint GetValue() {return _setPoint;}
 
-    void SetOutputValue(int out);
+    void SetOutputValue(uint out);
     uint GetOutputValue() {return DrivenOutput;}
 
     explicit VBRStateMachine(uint interval, uint dly, uint step, uint variation, QObject *parent = nullptr);
@@ -52,19 +52,6 @@ signals:
 
 };
 
-class VBRState
-{
-protected:
-    VBRStateMachine *_context=nullptr;
-    uint _counts = 0;
-    const uint _countsLimit;
-
-public:
-    VBRState(VBRStateMachine *pContext, uint countsLimit);
-    virtual ~VBRState();
-
-    virtual VBRState *HandleProbes(uint probesReadout) = 0;
-};
 
 
 #endif // VBRSTATEMACHINE_H

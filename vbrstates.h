@@ -3,6 +3,20 @@
 
 #include "vbrstatemachine.h"
 
+class VBRState
+{
+protected:
+    VBRStateMachine *_context=nullptr;
+    uint _counts = 0;
+    const uint _countsLimit;
+
+public:
+    VBRState(VBRStateMachine *pContext, uint countsLimit);
+    virtual ~VBRState();
+
+    virtual VBRState *HandleProbes(uint probesReadout) = 0;
+};
+
 class VBRState_A : public VBRState
 {
 public:
